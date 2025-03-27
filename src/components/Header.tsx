@@ -8,7 +8,8 @@ const StyledHeader = styled.header`
 
 const Title = styled.h1`
   font-size: 4.8rem;
-  font-weight: 600;
+  font-weight: 700;
+  text-shadow: 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.4);
 `;
 
 const Header = () => {

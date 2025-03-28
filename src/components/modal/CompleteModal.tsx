@@ -6,7 +6,7 @@ import {
   ModalBackDrop,
   ModalContainer,
   modalVariants,
-} from "./CommonModal";
+} from "./modalStyles";
 
 const Title = styled.h3`
   font-size: 2.6rem;
@@ -58,8 +58,8 @@ const CompleteModal = () => {
         exit='exit'
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <Title>🎊 축하합니다 🎊</Title>
-        <Paragraph>당신은 목표 달성에 성공했습니다.</Paragraph>
+        <Title>🎉 목표 달성! 🎉</Title>
+        <Paragraph>축하합니다! 목표를 달성하셨습니다.</Paragraph>
         <Btn onClick={onClick}>다시 시작하기</Btn>
       </ModalContainer>
     </ModalBackDrop>

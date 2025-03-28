@@ -10,7 +10,7 @@ import {
   ModalBackDrop,
   ModalContainer,
   modalVariants,
-} from "./CommonModal";
+} from "./modalStyles";
 
 const Form = styled.form`
   display: flex;
@@ -91,10 +91,10 @@ const SettingModal = () => {
     },
   });
   const { handleVisible } = useSettingStore();
-  const { settingTimer, resetTimer, minutes } = useTimerStore();
+  const { settingTimer, resetTimer, minutes, seconds } = useTimerStore();
 
   const handleClick = () => {
-    if (minutes === 0) return alert("설정을 완료해 주세요.");
+    if (minutes === 0 && seconds === 0) return alert("설정을 완료해 주세요.");
     handleVisible();
   };
 
@@ -139,7 +139,7 @@ const SettingModal = () => {
             <FormInput name='minute' control={control} placeholder='goal' />
             <ErrorMsg>{errors.minute?.message}</ErrorMsg>
           </InputWrap>
-          <ConfirmBtn type='submit'>확인</ConfirmBtn>
+          <ConfirmBtn type='submit'>저장</ConfirmBtn>
         </Form>
       </ModalContainer>
     </ModalBackDrop>

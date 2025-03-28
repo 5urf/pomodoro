@@ -1,4 +1,4 @@
-import { Svg } from "../styles/commonStyled";
+import { Svg } from "../styles/svgStyles";
 
 const PauseIcon = () => {
   return (

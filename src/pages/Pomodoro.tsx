@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import CtrlButton from "../components/CtrlButton";
+import CompleteModal from "../components/modal/CompleteModal";
+import SettingModal from "../components/modal/SettingModal";
 import RoundGoal from "../components/RoundGoal";
 import Setting from "../components/Setting";
-import SettingModal from "../components/SettingModal";
 import Timer from "../components/Timer";
 import useSettingStore from "../store/useSettingStore";
+import useTimerStore from "../store/useTimerStore";
 
 const Container = styled.div`
   width: 100%;
@@ -19,10 +21,11 @@ const Container = styled.div`
 
 const Pomodoro = () => {
   const { visible } = useSettingStore();
-
+  const { complete } = useTimerStore();
   return (
     <Container>
       {visible && <SettingModal />}
+      {complete && <CompleteModal />}
       <Timer />
       <CtrlButton />
       <RoundGoal />

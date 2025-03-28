@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 import styled from "styled-components";
 import SettingIcon from "../assets/SettingIcon";
 import useSettingStore from "../store/useSettingStore";
+import useTimerStore from "../store/useTimerStore";
 
 const Btn = styled(motion.button)`
   display: flex;
@@ -36,13 +37,19 @@ const btnVariants: Variants = {
 
 const Setting = () => {
   const { handleVisible } = useSettingStore();
+  const { pauseTimer } = useTimerStore();
+
+  const onClick = () => {
+    pauseTimer();
+    handleVisible();
+  };
   return (
     <Btn
       variants={btnVariants}
       initial='initial'
       whileHover='hover'
       whileTap='tap'
-      onClick={handleVisible}
+      onClick={onClick}
     >
       <SettingIcon />
     </Btn>

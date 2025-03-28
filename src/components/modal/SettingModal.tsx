@@ -1,25 +1,16 @@
-import { motion, Variants } from "framer-motion";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import useSettingStore from "../store/useSettingStore";
-import useTimerStore from "../store/useTimerStore";
-
-const ModalBackDrop = styled(motion.div)`
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ModalContainer = styled(motion.div)`
-  position: relative;
-  background-color: ${({ theme }) => theme.modalBgColor};
-  padding: 5rem;
-  border-radius: 1rem;
-`;
+import { z } from "zod";
+import useSettingStore from "../../store/useSettingStore";
+import useTimerStore from "../../store/useTimerStore";
+import FormInput from "../form/FormInput";
+import {
+  backDropVariants,
+  ModalBackDrop,
+  ModalContainer,
+  modalVariants,
+} from "./CommonModal";
 
 const Form = styled.form`
   display: flex;
@@ -43,12 +34,6 @@ const Title = styled.h3`
 
 const SubTitle = styled.p`
   font-size: 1.6rem;
-`;
-
-const Input = styled.input`
-  padding: 1rem;
-  border-radius: 0.8rem;
-  border: none;
 `;
 
 const InputWrap = styled.div`
@@ -84,50 +69,39 @@ const CloseBtn = styled.button`
   font-size: 1.8rem;
 `;
 
-const modalVariants: Variants = {
-  initial: {
-    opacity: 0,
-    scale: 0.8,
-  },
-  animate: {
-    opacity: 1,
-    scale: 1,
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.8,
-  },
-};
+const formSchema = z.object({
+  goal: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  round: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  minute: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+});
 
-const backDropVariants: Variants = {
-  initial: {
-    opacity: 0,
-  },
-  animate: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
-
-interface ISettingForm {
-  minute: number;
-  round: number;
-  goal: number;
-}
+type SettingFormType = z.infer<typeof formSchema>;
 
 const SettingModal = () => {
   const {
+    control,
     handleSubmit,
-    register,
     formState: { errors },
-  } = useForm<ISettingForm>();
+  } = useForm<SettingFormType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      goal: 12,
+      round: 4,
+      minute: 25,
+    },
+  });
   const { handleVisible } = useSettingStore();
-  const { settingTimer } = useTimerStore();
-  const onSubmit = ({ goal, round, minute }: ISettingForm) => {
-    settingTimer(Number(goal), Number(round), Number(minute));
+  const { settingTimer, resetTimer, minutes } = useTimerStore();
+
+  const handleClick = () => {
+    if (minutes === 0) return alert("설정을 완료해 주세요.");
     handleVisible();
+  };
+
+  const onSubmit = ({ goal, round, minute }: SettingFormType) => {
+    settingTimer(goal, round, minute);
+    handleVisible();
+    resetTimer();
   };
 
   return (
@@ -137,7 +111,7 @@ const SettingModal = () => {
       animate='animate'
       exit='exit'
       transition={{ duration: 0.3 }}
-      onClick={handleVisible}
+      onClick={handleClick}
     >
       <ModalContainer
         variants={modalVariants}
@@ -147,40 +121,22 @@ const SettingModal = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <CloseBtn onClick={handleVisible}>✖︎</CloseBtn>
+        <CloseBtn onClick={handleClick}>✖︎</CloseBtn>
         <Title>설정</Title>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputWrap>
             <SubTitle>Goal</SubTitle>
-            <Input
-              type='number'
-              placeholder='goal'
-              {...register("goal", {
-                required: "goal을 설정해 주세요.",
-              })}
-            />
+            <FormInput name='goal' control={control} placeholder='goal' />
             <ErrorMsg>{errors.goal?.message}</ErrorMsg>
           </InputWrap>
           <InputWrap>
             <SubTitle>Round</SubTitle>
-            <Input
-              type='number'
-              placeholder='round'
-              {...register("round", {
-                required: "round를 설정해 주세요.",
-              })}
-            />
+            <FormInput name='round' control={control} placeholder='goal' />
             <ErrorMsg>{errors.round?.message}</ErrorMsg>
           </InputWrap>
           <InputWrap>
             <SubTitle>Minute</SubTitle>
-            <Input
-              type='number'
-              placeholder='minute'
-              {...register("minute", {
-                required: "minute를 설정해 주세요.",
-              })}
-            />
+            <FormInput name='minute' control={control} placeholder='goal' />
             <ErrorMsg>{errors.minute?.message}</ErrorMsg>
           </InputWrap>
           <ConfirmBtn type='submit'>확인</ConfirmBtn>

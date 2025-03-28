@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import styled from "styled-components";
+import useTimerStore from "../store/useTimerStore";
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -31,14 +33,30 @@ const Colon = styled(Text)`
 `;
 
 const Timer = () => {
+  const { minutes, seconds, isStart, countDown } = useTimerStore(
+    (state) => state
+  );
+
+  useEffect(() => {
+    let interverId: number | undefined;
+    if (isStart) {
+      interverId = setInterval(() => {
+        countDown();
+      }, 1000);
+    } else {
+      clearInterval(interverId);
+    }
+    return () => clearInterval(interverId);
+  }, [isStart, countDown]);
+
   return (
     <Container>
       <Minute>
-        <Text>24</Text>
+        <Text>{String(minutes).padStart(2, "0")}</Text>
       </Minute>
       <Colon>:</Colon>
       <Second>
-        <Text>59</Text>
+        <Text>{String(seconds).padStart(2, "0")}</Text>
       </Second>
     </Container>
   );

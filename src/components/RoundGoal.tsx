@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useTimerStore from "../store/useTimerStore";
 
 const Container = styled.div`
   display: flex;
@@ -25,14 +26,16 @@ const ItemNumber = styled(ItemTitle)`
 `;
 
 const RoundGoal = () => {
+  const { rounds, completedRounds, goals, completedGoals } = useTimerStore();
+
   return (
     <Container>
       <ItemWrapper>
-        <ItemNumber>0/4</ItemNumber>
+        <ItemNumber>{`${completedRounds}/${rounds}`}</ItemNumber>
         <ItemTitle>ROUND</ItemTitle>
       </ItemWrapper>
       <ItemWrapper>
-        <ItemNumber>0/12</ItemNumber>
+        <ItemNumber>{`${completedGoals}/${goals}`}</ItemNumber>
         <ItemTitle>GOAL</ItemTitle>
       </ItemWrapper>
     </Container>

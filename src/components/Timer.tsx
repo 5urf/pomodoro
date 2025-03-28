@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { useEffect } from "react";
 import styled from "styled-components";
 import useTimerStore from "../store/useTimerStore";
@@ -32,10 +32,23 @@ const Colon = styled(Text)`
   opacity: 0.5;
 `;
 
+const timeVariants: Variants = {
+  initial: {
+    scale: 0.8,
+  },
+  animate: {
+    scale: 1,
+  },
+  exit: {
+    scale: 0.8,
+  },
+};
+
 const Timer = () => {
-  const { minutes, seconds, isStart, countDown } = useTimerStore(
-    (state) => state
-  );
+  const { minutes, seconds, isStart, countDown } = useTimerStore();
+
+  const minuteKey = String(minutes).padStart(2, "0");
+  const secondKey = String(seconds).padStart(2, "0");
 
   useEffect(() => {
     let interverId: number | undefined;
@@ -51,12 +64,26 @@ const Timer = () => {
 
   return (
     <Container>
-      <Minute>
-        <Text>{String(minutes).padStart(2, "0")}</Text>
+      <Minute
+        key={minuteKey}
+        variants={timeVariants}
+        initial='initial'
+        animate='animate'
+        exit='exit'
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        <Text>{minuteKey}</Text>
       </Minute>
       <Colon>:</Colon>
-      <Second>
-        <Text>{String(seconds).padStart(2, "0")}</Text>
+      <Second
+        key={secondKey}
+        variants={timeVariants}
+        initial='initial'
+        animate='animate'
+        exit='exit'
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        <Text>{secondKey}</Text>
       </Second>
     </Container>
   );

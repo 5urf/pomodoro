@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import CtrlButton from "../components/CtrlButton";
 import RoundGoal from "../components/RoundGoal";
+import Setting from "../components/Setting";
+import SettingModal from "../components/SettingModal";
 import Timer from "../components/Timer";
+import useSettingStore from "../store/useSettingStore";
 
 const Container = styled.div`
   width: 100%;
@@ -11,15 +14,19 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 12rem;
-  gap: 12rem;
+  gap: 8rem;
 `;
 
 const Pomodoro = () => {
+  const { visible } = useSettingStore();
+
   return (
     <Container>
+      {visible && <SettingModal />}
       <Timer />
       <CtrlButton />
       <RoundGoal />
+      <Setting />
     </Container>
   );
 };

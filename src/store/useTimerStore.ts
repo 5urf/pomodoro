@@ -19,7 +19,7 @@ interface ITimerStore {
   completeRound: () => void;
 }
 
-const useTimerStore = create<ITimerStore>((set) => ({
+const useTimerStore = create<ITimerStore>((set, get) => ({
   initialMinutes: 25,
   minutes: 25,
   seconds: 0,
@@ -56,34 +56,42 @@ const useTimerStore = create<ITimerStore>((set) => ({
       completedGoals: 0,
     })),
 
-  countDown: () =>
-    set((state) => {
-      if (state.minutes === 0 && state.seconds === 0) {
-        state.completeRound();
-        return {};
-      }
+  countDown: () => {
+    const state = get();
 
-      return {
-        minutes: state.seconds === 0 ? state.minutes - 1 : state.minutes,
-        seconds: state.seconds === 0 ? 59 : state.seconds - 1,
-      };
-    }),
+    if (state.minutes === 0 && state.seconds === 0) {
+      get().completeRound();
+      return;
+    }
+
+    set({
+      minutes: state.seconds === 0 ? state.minutes - 1 : state.minutes,
+      seconds: state.seconds === 0 ? 59 : state.seconds - 1,
+    });
+  },
 
   completeRound: () =>
     set((state) => {
       const newCompletedRounds = state.completedRounds + 1;
       const isGoalCompleted = newCompletedRounds === state.rounds;
+
+      const newCompletedRoundsAdjusted = isGoalCompleted
+        ? 0
+        : newCompletedRounds;
+
       const newCompletedGoals = isGoalCompleted
         ? state.completedGoals + 1
         : state.completedGoals;
 
+      const isCompleted = newCompletedGoals === state.goals;
+
       return {
-        minutes: isGoalCompleted ? 0 : state.initialMinutes,
+        minutes: isCompleted ? 0 : state.initialMinutes,
         seconds: 0,
         isStart: false,
-        completedRounds: newCompletedRounds,
+        completedRounds: newCompletedRoundsAdjusted,
         completedGoals: newCompletedGoals,
-        complete: newCompletedGoals === state.goals,
+        complete: isCompleted,
       };
     }),
 }));

@@ -1,12 +1,8 @@
+import { Variants } from "framer-motion";
 import styled from "styled-components";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
-import {
-  backDropVariants,
-  ModalBackDrop,
-  ModalContainer,
-  modalVariants,
-} from "./modalStyles";
+import { backDropVariants, ModalBackDrop, ModalContainer } from "./modalStyles";
 
 const Title = styled.h3`
   font-size: 2.6rem;
@@ -25,15 +21,31 @@ const Btn = styled.button`
   border-radius: 1rem;
   padding: 1rem;
   font-size: 1.6rem;
+  cursor: pointer;
   background-color: ${({ theme }) => theme.subTextColor};
   color: ${({ theme }) => theme.textColor};
-
-  transition: color 0.1s ease-in-out;
+  transition: all 0.18s ease-in-out;
 
   &:hover {
-    color: ${({ theme }) => theme.accentColor};
+    background-color: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) => theme.modalBgColor};
   }
 `;
+
+const completeModalVariants: Variants = {
+  initial: { opacity: 0, y: "-50px", scale: 0.8 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 300,
+      damping: 20,
+    },
+  },
+};
 
 const CompleteModal = () => {
   const { handleVisible } = useSettingStore();
@@ -52,14 +64,12 @@ const CompleteModal = () => {
       transition={{ duration: 0.3 }}
     >
       <ModalContainer
-        variants={modalVariants}
+        variants={completeModalVariants}
         initial='initial'
         animate='animate'
-        exit='exit'
-        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        <Title>🎉 목표 달성! 🎉</Title>
-        <Paragraph>축하합니다! 목표를 달성하셨습니다.</Paragraph>
+        <Title>🎉 Congratulations! 🎉</Title>
+        <Paragraph>목표 달성! 축하합니다!</Paragraph>
         <Btn onClick={onClick}>다시 시작하기</Btn>
       </ModalContainer>
     </ModalBackDrop>

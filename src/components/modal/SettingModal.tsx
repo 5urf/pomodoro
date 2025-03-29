@@ -44,13 +44,14 @@ const ConfirmBtn = styled.button`
   border-radius: 1rem;
   padding: 1rem;
   font-size: 1.6rem;
+  cursor: pointer;
   background-color: ${({ theme }) => theme.subTextColor};
   color: ${({ theme }) => theme.textColor};
-
-  transition: color 0.1s ease-in-out;
+  transition: all 0.18s ease-in-out;
 
   &:hover {
-    color: ${({ theme }) => theme.accentColor};
+    background-color: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) => theme.modalBgColor};
   }
 `;
 
@@ -62,6 +63,13 @@ const CloseBtn = styled.button`
   background: none;
   padding: 2rem;
   font-size: 1.8rem;
+  cursor: pointer;
+
+  transition: color 0.18s ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.subTextColor};
+  }
 `;
 
 const formSchema = z.object({

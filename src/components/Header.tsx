@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import Setting from "./Setting";
 
 const StyledHeader = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,6 +18,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <Title>Pomodoro</Title>
+      <Setting />
     </StyledHeader>
   );
 };

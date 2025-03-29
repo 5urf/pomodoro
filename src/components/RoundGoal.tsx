@@ -18,6 +18,7 @@ const ItemWrapper = styled.div`
 
 const ItemTitle = styled.p`
   font-size: 1.8rem;
+  font-weight: bold;
   color: ${({ theme }) => theme.subTextColor};
 `;
 

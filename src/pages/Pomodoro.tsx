@@ -3,7 +3,6 @@ import CtrlButton from "../components/CtrlButton";
 import CompleteModal from "../components/modal/CompleteModal";
 import SettingModal from "../components/modal/SettingModal";
 import RoundGoal from "../components/RoundGoal";
-import Setting from "../components/Setting";
 import Timer from "../components/Timer";
 import useSettingStore from "../store/useSettingStore";
 import useTimerStore from "../store/useTimerStore";
@@ -29,7 +28,6 @@ const Pomodoro = () => {
       <Timer />
       <CtrlButton />
       <RoundGoal />
-      <Setting />
     </Container>
   );
 };

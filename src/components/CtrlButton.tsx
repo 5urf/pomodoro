@@ -16,9 +16,10 @@ const Btn = styled(motion.button)`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: ${({ theme }) => theme.accentColor};
+  background-color: rgba(76, 82, 93, 0.8);
   border: none;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const btnVariants: Variants = {

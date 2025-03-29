@@ -5,12 +5,15 @@ import useSettingStore from "../store/useSettingStore";
 import useTimerStore from "../store/useTimerStore";
 
 const Btn = styled(motion.button)`
+  position: absolute;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background-color: transparent;
   padding: 1rem;
+  cursor: pointer;
 `;
 
 const btnVariants: Variants = {

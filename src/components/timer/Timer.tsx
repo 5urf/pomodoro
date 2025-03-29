@@ -40,9 +40,9 @@ const Timer = () => {
 
   return (
     <Container>
-      <TimerItem timerItemKey={minuteKey} displayName={displayMinute} />
+      <TimerItem timerItemKey={minuteKey} displayTime={displayMinute} />
       <Colon>:</Colon>
-      <TimerItem timerItemKey={secondKey} displayName={displaySeconds} />
+      <TimerItem timerItemKey={secondKey} displayTime={displaySeconds} />
     </Container>
   );
 };

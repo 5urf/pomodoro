@@ -32,10 +32,10 @@ const timeVariants: Variants = {
 
 interface ITimerItem {
   timerItemKey: string;
-  displayName: string;
+  displayTime: string;
 }
 
-const TimerItem = ({ timerItemKey, displayName }: ITimerItem) => {
+const TimerItem = ({ timerItemKey, displayTime }: ITimerItem) => {
   return (
     <TimeBox
       key={timerItemKey}
@@ -44,7 +44,7 @@ const TimerItem = ({ timerItemKey, displayName }: ITimerItem) => {
       animate='animate'
       exit='exit'
     >
-      <Text>{displayName}</Text>
+      <Text>{displayTime}</Text>
     </TimeBox>
   );
 };

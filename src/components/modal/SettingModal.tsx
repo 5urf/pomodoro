@@ -74,8 +74,12 @@ const CloseBtn = styled.button`
 
 const formSchema = z.object({
   goals: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+
   rounds: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
-  minute: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  minute: z
+    .number()
+    .min(1, { message: "0 이상으로 설정해 주세요." })
+    .max(60, { message: "60 이하로 설정해 주세요." }),
 });
 
 type SettingFormType = z.infer<typeof formSchema>;

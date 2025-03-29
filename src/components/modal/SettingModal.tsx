@@ -20,11 +20,6 @@ const Form = styled.form`
   gap: 2rem;
 `;
 
-const ErrorMsg = styled.small`
-  color: red;
-  font-size: 1rem;
-`;
-
 const Title = styled.h3`
   font-size: 2.6rem;
   font-weight: 500;
@@ -70,38 +65,35 @@ const CloseBtn = styled.button`
 `;
 
 const formSchema = z.object({
-  goal: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
-  round: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  goals: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  rounds: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
   minute: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
 });
 
 type SettingFormType = z.infer<typeof formSchema>;
 
 const SettingModal = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SettingFormType>({
+  const { handleVisible } = useSettingStore();
+  const { settingTimer, minutes, seconds, initialMinutes, rounds, goals } =
+    useTimerStore();
+
+  const { control, handleSubmit } = useForm<SettingFormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      goal: 12,
-      round: 4,
-      minute: 25,
+      goals,
+      rounds,
+      minute: initialMinutes,
     },
   });
-  const { handleVisible } = useSettingStore();
-  const { settingTimer, resetTimer, minutes, seconds } = useTimerStore();
 
   const handleClick = () => {
     if (minutes === 0 && seconds === 0) return alert("설정을 완료해 주세요.");
     handleVisible();
   };
 
-  const onSubmit = ({ goal, round, minute }: SettingFormType) => {
-    settingTimer(goal, round, minute);
+  const onSubmit = ({ goals, rounds, minute }: SettingFormType) => {
+    settingTimer(goals, rounds, minute);
     handleVisible();
-    resetTimer();
   };
 
   return (
@@ -126,18 +118,15 @@ const SettingModal = () => {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputWrap>
             <SubTitle>Goal</SubTitle>
-            <FormInput name='goal' control={control} placeholder='goal' />
-            <ErrorMsg>{errors.goal?.message}</ErrorMsg>
+            <FormInput name='goals' control={control} placeholder='goals' />
           </InputWrap>
           <InputWrap>
             <SubTitle>Round</SubTitle>
-            <FormInput name='round' control={control} placeholder='goal' />
-            <ErrorMsg>{errors.round?.message}</ErrorMsg>
+            <FormInput name='rounds' control={control} placeholder='rounds' />
           </InputWrap>
           <InputWrap>
             <SubTitle>Minute</SubTitle>
-            <FormInput name='minute' control={control} placeholder='goal' />
-            <ErrorMsg>{errors.minute?.message}</ErrorMsg>
+            <FormInput name='minute' control={control} placeholder='minute' />
           </InputWrap>
           <ConfirmBtn type='submit'>저장</ConfirmBtn>
         </Form>

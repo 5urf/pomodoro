@@ -23,7 +23,7 @@ const Minute = styled(motion.div)`
 const Second = styled(Minute)``;
 
 const Text = styled.p`
-  font-size: 4.6rem;
+  font-size: 6.8rem;
   font-weight: 600;
   color: ${({ theme }) => theme.textColor};
 `;
@@ -38,6 +38,7 @@ const timeVariants: Variants = {
   },
   animate: {
     scale: 1,
+    transition: { type: "spring", stiffness: 400, damping: 10 },
   },
   exit: {
     scale: 0.8,
@@ -47,8 +48,8 @@ const timeVariants: Variants = {
 const Timer = () => {
   const { minutes, seconds, isStart, countDown } = useTimerStore();
 
-  const minuteKey = String(minutes).padStart(2, "0");
-  const secondKey = String(seconds).padStart(2, "0");
+  const displayMinute = String(minutes).padStart(2, "0");
+  const displaySeconds = String(seconds).padStart(2, "0");
 
   useEffect(() => {
     let interverId: number | undefined;
@@ -65,25 +66,23 @@ const Timer = () => {
   return (
     <Container>
       <Minute
-        key={minuteKey}
+        key={`m-${minutes}`}
         variants={timeVariants}
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <Text>{minuteKey}</Text>
+        <Text>{displayMinute}</Text>
       </Minute>
       <Colon>:</Colon>
       <Second
-        key={secondKey}
+        key={`s-${seconds}`}
         variants={timeVariants}
         initial='initial'
         animate='animate'
         exit='exit'
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <Text>{secondKey}</Text>
+        <Text>{displaySeconds}</Text>
       </Second>
     </Container>
   );

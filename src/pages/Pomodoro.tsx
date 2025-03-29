@@ -2,8 +2,8 @@ import styled from "styled-components";
 import CtrlButton from "../components/CtrlButton";
 import CompleteModal from "../components/modal/CompleteModal";
 import SettingModal from "../components/modal/SettingModal";
-import RoundGoal from "../components/RoundGoal";
-import Timer from "../components/Timer";
+import RoundGoal from "../components/roundGoal/RoundGoal";
+import Timer from "../components/timer/Timer";
 import useSettingStore from "../store/useSettingStore";
 import useTimerStore from "../store/useTimerStore";
 

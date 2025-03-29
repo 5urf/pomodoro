@@ -2,7 +2,11 @@ import { Variants } from "framer-motion";
 import styled from "styled-components";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
-import { backDropVariants, ModalBackDrop, ModalContainer } from "./modalStyles";
+import {
+  backDropVariants,
+  ModalBackDrop,
+  ModalContainer,
+} from "../../styles/modalStyles";
 
 const Title = styled.h3`
   font-size: 2.6rem;

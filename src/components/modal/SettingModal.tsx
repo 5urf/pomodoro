@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { z } from "zod";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
-import FormInput from "../form/FormInput";
 import {
   backDropVariants,
   ModalBackDrop,
   ModalContainer,
   modalVariants,
-} from "./modalStyles";
+} from "../../styles/modalStyles";
+import FormInput from "../form/FormInput";
 
 const Form = styled.form`
   display: flex;

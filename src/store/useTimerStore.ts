@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface ITimerStore {
+  initialMinutes: number;
   minutes: number;
   seconds: number;
   isStart: boolean;
@@ -19,6 +20,7 @@ interface ITimerStore {
 }
 
 const useTimerStore = create<ITimerStore>((set) => ({
+  initialMinutes: 25,
   minutes: 25,
   seconds: 0,
   isStart: false,
@@ -31,16 +33,22 @@ const useTimerStore = create<ITimerStore>((set) => ({
   startTimer: () => set({ isStart: true }),
   pauseTimer: () => set({ isStart: false }),
 
-  settingTimer: (goals: number, rounds: number, minutes: number) =>
+  settingTimer: (goals, rounds, minutes) =>
     set({
       goals,
       rounds,
       minutes,
+      initialMinutes: minutes,
+      seconds: 0,
+      completedRounds: 0,
+      completedGoals: 0,
+      complete: false,
+      isStart: false,
     }),
 
   resetTimer: () =>
-    set((state) => ({
-      minutes: state.minutes,
+    set(() => ({
+      minutes: 0,
       seconds: 0,
       isStart: false,
       complete: false,
@@ -50,30 +58,33 @@ const useTimerStore = create<ITimerStore>((set) => ({
 
   countDown: () =>
     set((state) => {
-      if (state.seconds === 0) {
-        if (state.minutes === 0) {
-          state.pauseTimer();
-          state.completeRound();
-          return { minutes: state.minutes, seconds: 0 };
-        } else {
-          return { minutes: state.minutes - 1, seconds: 59 };
-        }
-      } else {
-        return { seconds: state.seconds - 1 };
+      if (state.minutes === 0 && state.seconds === 0) {
+        state.completeRound();
+        return {};
       }
+
+      return {
+        minutes: state.seconds === 0 ? state.minutes - 1 : state.minutes,
+        seconds: state.seconds === 0 ? 59 : state.seconds - 1,
+      };
     }),
 
   completeRound: () =>
     set((state) => {
       const newCompletedRounds = state.completedRounds + 1;
-      if (newCompletedRounds === state.rounds) {
-        const newCompletedGoals = state.completedGoals + 1;
-        if (newCompletedGoals >= state.goals) {
-          set({ complete: true });
-        }
-        return { completedRounds: 0, completedGoals: newCompletedGoals };
-      }
-      return { completedRounds: newCompletedRounds };
+      const isGoalCompleted = newCompletedRounds === state.rounds;
+      const newCompletedGoals = isGoalCompleted
+        ? state.completedGoals + 1
+        : state.completedGoals;
+
+      return {
+        minutes: isGoalCompleted ? 0 : state.initialMinutes,
+        seconds: 0,
+        isStart: false,
+        completedRounds: newCompletedRounds,
+        completedGoals: newCompletedGoals,
+        complete: newCompletedGoals === state.goals,
+      };
     }),
 }));
 

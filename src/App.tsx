@@ -1,5 +1,5 @@
-import { Outlet } from "react-router";
 import Header from "./components/Header";
+import Pomodoro from "./pages/Pomodoro";
 import { GlobalStyle } from "./styles/globalStyles";
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <Header />
-      <Outlet />
+      <Pomodoro />
     </>
   );
 };

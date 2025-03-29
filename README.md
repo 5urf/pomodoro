@@ -9,3 +9,5 @@
 - **Zustand**
 - **Styled-Components**
 - **Framer-Motion**
+- **React-Hook-Form**
+- **Zod**

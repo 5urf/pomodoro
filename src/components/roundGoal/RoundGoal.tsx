@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useShallow } from "zustand/shallow";
-import useTimerStore from "../../store/useTimerStore";
-import RoundGoalItem from "./RoundGoalItem";
+import Goal from "./Goal";
+import Round from "./Round";
 
 const Container = styled.div`
   display: flex;
@@ -11,22 +10,10 @@ const Container = styled.div`
 `;
 
 const RoundGoal = () => {
-  const { rounds, completedRounds, goals, completedGoals } = useTimerStore(
-    useShallow((state) => ({
-      rounds: state.rounds,
-      completedRounds: state.completedRounds,
-      goals: state.goals,
-      completedGoals: state.completedGoals,
-    }))
-  );
-
-  const roundItemNumber = `${completedRounds}/${rounds}`;
-  const goalItemNumber = `${completedGoals}/${goals}`;
-
   return (
     <Container>
-      <RoundGoalItem itemNumber={roundItemNumber} itemTitle='ROUND' />
-      <RoundGoalItem itemNumber={goalItemNumber} itemTitle='GOAL' />
+      <Round />
+      <Goal />
     </Container>
   );
 };

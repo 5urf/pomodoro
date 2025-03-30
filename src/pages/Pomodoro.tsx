@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
 import CtrlButton from "../components/CtrlButton";
 import CompleteModal from "../components/modal/CompleteModal";
 import SettingModal from "../components/modal/SettingModal";
@@ -19,8 +20,16 @@ const Container = styled.div`
 `;
 
 const Pomodoro = () => {
-  const { visible } = useSettingStore();
-  const { complete } = useTimerStore();
+  const { visible } = useSettingStore(
+    useShallow((state) => ({
+      visible: state.visible,
+    }))
+  );
+  const { complete } = useTimerStore(
+    useShallow((state) => ({
+      complete: state.complete,
+    }))
+  );
   return (
     <Container>
       {visible && <SettingModal />}

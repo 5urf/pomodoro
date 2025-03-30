@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
 import SettingIcon from "../assets/SettingIcon";
 import useSettingStore from "../store/useSettingStore";
 import useTimerStore from "../store/useTimerStore";
@@ -39,8 +40,16 @@ const btnVariants: Variants = {
 };
 
 const Setting = () => {
-  const { handleVisible } = useSettingStore();
-  const { pauseTimer } = useTimerStore();
+  const { handleVisible } = useSettingStore(
+    useShallow((state) => ({
+      handleVisible: state.handleVisible,
+    }))
+  );
+  const { pauseTimer } = useTimerStore(
+    useShallow((state) => ({
+      pauseTimer: state.pauseTimer,
+    }))
+  );
 
   const onClick = () => {
     pauseTimer();

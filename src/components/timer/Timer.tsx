@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
 import useTimerStore from "../../store/useTimerStore";
 import TimerItem from "./TimerItem";
 
@@ -19,7 +20,14 @@ const Colon = styled.p`
 `;
 
 const Timer = () => {
-  const { minutes, seconds, isStart, countDown } = useTimerStore();
+  const { minutes, seconds, isStart, countDown } = useTimerStore(
+    useShallow((state) => ({
+      minutes: state.minutes,
+      seconds: state.seconds,
+      isStart: state.isStart,
+      countDown: state.countDown,
+    }))
+  );
 
   const minuteKey = `m-${minutes}`;
   const secondKey = `s-${seconds}`;

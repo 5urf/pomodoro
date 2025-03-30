@@ -1,5 +1,6 @@
 import { Variants } from "framer-motion";
 import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
 import {
@@ -52,8 +53,16 @@ const completeModalVariants: Variants = {
 };
 
 const CompleteModal = () => {
-  const { handleVisible } = useSettingStore();
-  const { resetTimer } = useTimerStore();
+  const { handleVisible } = useSettingStore(
+    useShallow((state) => ({
+      handleVisible: state.handleVisible,
+    }))
+  );
+  const { resetTimer } = useTimerStore(
+    useShallow((state) => ({
+      resetTimer: state.resetTimer,
+    }))
+  );
 
   const onClick = () => {
     resetTimer();

@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { z } from "zod";
+import { useShallow } from "zustand/shallow";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
 import {
@@ -85,9 +86,22 @@ const formSchema = z.object({
 type SettingFormType = z.infer<typeof formSchema>;
 
 const SettingModal = () => {
-  const { handleVisible } = useSettingStore();
+  const { handleVisible } = useSettingStore(
+    useShallow((state) => ({
+      handleVisible: state.handleVisible,
+    }))
+  );
   const { settingTimer, minutes, seconds, initialMinutes, rounds, goals } =
-    useTimerStore();
+    useTimerStore(
+      useShallow((state) => ({
+        settingTimer: state.settingTimer,
+        minutes: state.minutes,
+        seconds: state.seconds,
+        initialMinutes: state.initialMinutes,
+        rounds: state.rounds,
+        goals: state.goals,
+      }))
+    );
 
   const { control, handleSubmit } = useForm<SettingFormType>({
     resolver: zodResolver(formSchema),

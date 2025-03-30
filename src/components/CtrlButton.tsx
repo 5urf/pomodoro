@@ -1,5 +1,6 @@
 import { motion, Variants } from "framer-motion";
 import styled from "styled-components";
+import { useShallow } from "zustand/shallow";
 import PauseIcon from "../assets/PauseIcon";
 import PlayIcon from "../assets/PlayIcon";
 import useBtnActionStore from "../store/useBtnActionStore";
@@ -45,8 +46,16 @@ const btnVariants: Variants = {
 };
 
 const CtrlButton = () => {
-  const { toggleButton } = useBtnActionStore();
-  const { isStart } = useTimerStore();
+  const { toggleButton } = useBtnActionStore(
+    useShallow((state) => ({
+      toggleButton: state.toggleButton,
+    }))
+  );
+  const { isStart } = useTimerStore(
+    useShallow((state) => ({
+      isStart: state.isStart,
+    }))
+  );
 
   return (
     <Container>

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface ITimerStore {
+interface ITimerState {
   initialMinutes: number;
   minutes: number;
   seconds: number;
@@ -10,7 +10,9 @@ interface ITimerStore {
   completedRounds: number;
   completedGoals: number;
   complete: boolean;
+}
 
+interface ITimerStore extends ITimerState {
   startTimer: () => void;
   pauseTimer: () => void;
   settingTimer: (goals: number, rounds: number, minutes: number) => void;
@@ -19,7 +21,7 @@ interface ITimerStore {
   completeRound: () => void;
 }
 
-const useTimerStore = create<ITimerStore>((set, get) => ({
+const initialState: ITimerState = {
   initialMinutes: 25,
   minutes: 25,
   seconds: 0,
@@ -29,6 +31,10 @@ const useTimerStore = create<ITimerStore>((set, get) => ({
   completedRounds: 0,
   completedGoals: 0,
   complete: false,
+};
+
+const useTimerStore = create<ITimerStore>((set, get) => ({
+  ...initialState,
 
   startTimer: () => set({ isStart: true }),
   pauseTimer: () => set({ isStart: false }),

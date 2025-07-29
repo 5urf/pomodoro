@@ -14,6 +14,7 @@ export const ModalBackDrop = styled(motion.div)`
 export const ModalContainer = styled(motion.div)`
   position: relative;
   background-color: ${({ theme }) => theme.modalBgColor};
+  backdrop-filter: blur(20px);
   padding: 5rem;
   border-radius: 1rem;
   display: flex;

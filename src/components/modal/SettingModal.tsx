@@ -27,10 +27,13 @@ const Title = styled.h3`
   font-weight: 500;
   margin-bottom: 2rem;
   text-align: center;
+  color: ${({ theme }) => theme.textColor};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const SubTitle = styled.p`
   font-size: 1.6rem;
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const InputWrap = styled.div`
@@ -47,13 +50,13 @@ const ConfirmBtn = styled.button`
   padding: 1rem;
   font-size: 1.6rem;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.subTextColor};
-  color: ${({ theme }) => theme.textColor};
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   transition: all 0.18s ease-in-out;
 
   &:hover {
-    background-color: ${({ theme }) => theme.textColor};
-    color: ${({ theme }) => theme.modalBgColor};
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
 `;
 
@@ -66,11 +69,11 @@ const CloseBtn = styled.button`
   padding: 2rem;
   font-size: 1.8rem;
   cursor: pointer;
-
+  color: #e2e8f0;
   transition: color 0.18s ease-in-out;
 
   &:hover {
-    color: ${({ theme }) => theme.subTextColor};
+    color: #ffffff;
   }
 `;
 

@@ -30,20 +30,25 @@ footer, header, hgroup, main, menu, nav, section {
 *[hidden] {
     display: none;
 }
+
 body {
   line-height: 1;
 }
+
 menu, ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -58,14 +63,46 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: ${({ theme }) => theme.bgColor};
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: ${({ theme }) => theme.bgColor};
   color: ${({ theme }) => theme.textColor};
   height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+    z-index: -1;
+    animation: subtleMove 25s ease-in-out infinite;
+  }
+  
+  @keyframes subtleMove {
+    0%, 100% { 
+      transform: translateX(0px) translateY(0px);
+    }
+    25% { 
+      transform: translateX(8px) translateY(-5px);
+    }
+    50% { 
+      transform: translateX(-6px) translateY(8px);
+    }
+    75% { 
+      transform: translateX(5px) translateY(-3px);
+    }
+  }
 }
 
 a {

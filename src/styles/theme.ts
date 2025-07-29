@@ -1,9 +1,13 @@
 import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
-  bgColor: "#c8d6dc",
-  modalBgColor: "#f0e2cd",
-  textColor: "#4c525d",
-  accentColor: "#f8dcc9",
-  subTextColor: "#f5f7f7 ",
+  bgColor: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+
+  modalBgColor: "rgba(255, 255, 255, 0.15)",
+
+  textColor: "#ffffff",
+
+  accentColor: "rgba(255, 255, 255, 0.15)",
+
+  subTextColor: "#e2e8f0",
 };

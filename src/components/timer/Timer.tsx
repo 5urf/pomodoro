@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useShallow } from "zustand/shallow";
 import { TIMER_CONSTANTS } from "../../constants";
@@ -22,6 +22,15 @@ const Colon = styled.p`
 `;
 
 const Timer = () => {
+  const intervalRef = useRef<number | null>(null);
+
+  const clearIntervalHnadle = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  };
+
   const { isStart, countDown } = useTimerStore(
     useShallow((state) => ({
       isStart: state.isStart,
@@ -30,15 +39,14 @@ const Timer = () => {
   );
 
   useEffect(() => {
-    let interverId: number | undefined;
     if (isStart) {
-      interverId = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         countDown();
       }, TIMER_CONSTANTS.TIMER_INTERVAL);
     } else {
-      clearInterval(interverId);
+      clearIntervalHnadle();
     }
-    return () => clearInterval(interverId);
+    return clearIntervalHnadle;
   }, [isStart, countDown]);
 
   return (

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { TIMER_CONSTANTS } from "../constants";
 
 interface ITimerState {
   initialMinutes: number;
@@ -22,12 +23,12 @@ interface ITimerStore extends ITimerState {
 }
 
 const initialState: ITimerState = {
-  initialMinutes: 25,
-  minutes: 25,
+  initialMinutes: TIMER_CONSTANTS.DEFAULT_MINUTES,
+  minutes: TIMER_CONSTANTS.DEFAULT_MINUTES,
   seconds: 0,
   isStart: false,
-  rounds: 4,
-  goals: 12,
+  rounds: TIMER_CONSTANTS.DEFAULT_ROUNDS,
+  goals: TIMER_CONSTANTS.DEFAULT_GOALS,
   completedRounds: 0,
   completedGoals: 0,
   complete: false,
@@ -72,7 +73,10 @@ const useTimerStore = create<ITimerStore>((set, get) => ({
 
     set({
       minutes: state.seconds === 0 ? state.minutes - 1 : state.minutes,
-      seconds: state.seconds === 0 ? 59 : state.seconds - 1,
+      seconds:
+        state.seconds === 0
+          ? TIMER_CONSTANTS.SECONDS_IN_MINUTE - 1
+          : state.seconds - 1,
     });
   },
 

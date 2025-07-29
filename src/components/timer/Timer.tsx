@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useShallow } from "zustand/shallow";
+import { TIMER_CONSTANTS } from "../../constants";
 import useTimerStore from "../../store/useTimerStore";
 import Minute from "./Minute";
 import Seconds from "./Seconds";
@@ -33,7 +34,7 @@ const Timer = () => {
     if (isStart) {
       interverId = setInterval(() => {
         countDown();
-      }, 1000);
+      }, TIMER_CONSTANTS.TIMER_INTERVAL);
     } else {
       clearInterval(interverId);
     }

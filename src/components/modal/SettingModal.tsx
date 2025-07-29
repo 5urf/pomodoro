@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { z } from "zod";
 import { useShallow } from "zustand/shallow";
+import { TIMER_CONSTANTS } from "../../constants";
 import useSettingStore from "../../store/useSettingStore";
 import useTimerStore from "../../store/useTimerStore";
 import {
@@ -74,13 +75,21 @@ const CloseBtn = styled.button`
 `;
 
 const formSchema = z.object({
-  goals: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  goals: z.number().min(TIMER_CONSTANTS.MIN_VALUE, {
+    message: `${TIMER_CONSTANTS.MIN_VALUE} 이상으로 설정해 주세요.`,
+  }),
 
-  rounds: z.number().min(1, { message: "0 이상으로 설정해 주세요." }),
+  rounds: z.number().min(TIMER_CONSTANTS.MIN_VALUE, {
+    message: `${TIMER_CONSTANTS.MIN_VALUE} 이상으로 설정해 주세요.`,
+  }),
   minute: z
     .number()
-    .min(1, { message: "0 이상으로 설정해 주세요." })
-    .max(60, { message: "60 이하로 설정해 주세요." }),
+    .min(TIMER_CONSTANTS.MIN_VALUE, {
+      message: `${TIMER_CONSTANTS.MIN_VALUE} 이상으로 설정해 주세요.`,
+    })
+    .max(TIMER_CONSTANTS.MAX_MINUTES, {
+      message: `${TIMER_CONSTANTS.MAX_MINUTES} 이하로 설정해 주세요.`,
+    }),
 });
 
 type SettingFormType = z.infer<typeof formSchema>;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useShallow } from "zustand/shallow";
 import PauseIcon from "../assets/PauseIcon";
 import PlayIcon from "../assets/PlayIcon";
-import useBtnActionStore from "../store/useBtnActionStore";
 import useTimerStore from "../store/useTimerStore";
 
 const Container = styled.div`
@@ -46,13 +45,9 @@ const btnVariants: Variants = {
 };
 
 const CtrlButton = () => {
-  const { toggleButton } = useBtnActionStore(
+  const { toggleTimer, isStart } = useTimerStore(
     useShallow((state) => ({
-      toggleButton: state.toggleButton,
-    }))
-  );
-  const { isStart } = useTimerStore(
-    useShallow((state) => ({
+      toggleTimer: state.toggleTimer,
       isStart: state.isStart,
     }))
   );
@@ -64,7 +59,7 @@ const CtrlButton = () => {
         initial='initial'
         whileHover='hover'
         whileTap='tap'
-        onClick={toggleButton}
+        onClick={toggleTimer}
       >
         {!isStart ? <PlayIcon /> : <PauseIcon />}
       </Btn>

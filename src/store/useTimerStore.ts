@@ -16,6 +16,7 @@ interface ITimerState {
 interface ITimerStore extends ITimerState {
   startTimer: () => void;
   pauseTimer: () => void;
+  toggleTimer: () => void;
   settingTimer: (goals: number, rounds: number, minutes: number) => void;
   resetTimer: () => void;
   countDown: () => void;
@@ -39,6 +40,10 @@ const useTimerStore = create<ITimerStore>((set, get) => ({
 
   startTimer: () => set({ isStart: true }),
   pauseTimer: () => set({ isStart: false }),
+  toggleTimer: () => {
+    const { isStart } = get();
+    set({ isStart: !isStart });
+  },
 
   settingTimer: (goals, rounds, minutes) =>
     set({

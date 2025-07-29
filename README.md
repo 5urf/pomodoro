@@ -51,7 +51,7 @@ pnpm build
 
 ## 🌐 Demo
 
-<a href="https://5urf.github.io/pomodoro/" target="_blank" rel="noopener noreferrer">Live Demo</a>
+[Live Demo](https://5urf.github.io/pomodoro/)
 
 ---
 

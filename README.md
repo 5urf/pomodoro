@@ -31,7 +31,6 @@ React와 TypeScript로 구현한 뽀모도로 타이머 앱입니다. 집중력 
 - **라운드 및 목표 추적**: 4라운드 = 1목표 시스템
 - **설정 기능**: 목표, 라운드, 시간 커스터마이징
 - **완료 알림**: 목표 달성 시 축하 모달
-- **반응형 디자인**: 모든 디바이스에서 최적화된 경험
 
 ## 🚀 설치 및 실행
 
@@ -52,7 +51,7 @@ pnpm build
 
 ## 🌐 Demo
 
-[Live Demo](https://5urf.github.io/pomodoro/)
+<a href="https://5urf.github.io/pomodoro/" target="_blank" rel="noopener noreferrer">Live Demo</a>
 
 ---
 

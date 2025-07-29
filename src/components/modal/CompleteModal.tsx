@@ -27,13 +27,13 @@ const Btn = styled.button`
   padding: 1rem;
   font-size: 1.6rem;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.subTextColor};
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: ${({ theme }) => theme.textColor};
   transition: all 0.18s ease-in-out;
 
   &:hover {
-    background-color: ${({ theme }) => theme.textColor};
-    color: ${({ theme }) => theme.modalBgColor};
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
 `;
 

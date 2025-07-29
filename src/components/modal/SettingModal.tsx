@@ -51,7 +51,7 @@ const ConfirmBtn = styled.button`
   font-size: 1.6rem;
   cursor: pointer;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  color: ${({ theme }) => theme.textColor};
   transition: all 0.18s ease-in-out;
 
   &:hover {
